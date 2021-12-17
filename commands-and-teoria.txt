@@ -1,0 +1,154 @@
+Ask Questions:
+
+-Виртуальная машина-
+	Виртуальная машина - это компьютер в компьютере , он работает за счет заимствования компонентов от ПК(ЦП, ПАМЯТЬ , ХАРД)
+	Виртуальная машина виртуализирует ОС, которую вы на нее поставите.
+
+-DEBIAN-
+	Debian - это проект, который поддерживается за счет волонтеров(сторонних разработчиков).Он ни от кого не зависит и является одной из самый надежных ОС.
+
+-APPArmor-
+	Другим популярным и широко используемым MAC является AppArmor, который помимо функций, предоставляемых SELinux, включает в себя режим обучения, который позволяет системе «учиться» тому, как работает конкретное приложение, и устанавливать ограничения, настраивая профили для безопасного использования приложений.
+
+-SSH-
+	SSH - защищенный протокол для удаленного доступа к компьютерам. Через SSH можно локально подключаться к компьютеру , который находится в одной локальной сети с вами
+
+-UFW-
+	UFW (Uncomplicated Firewall) - это брендмаур , с помощью которого можно открыть/закрыть порты для подключения , передачи пакетов. 
+
+-APT-
+	Apt или Advanced Packaging Tool - это свободная программа с открытым исходным кодом, которая позволяет устанавливать и удалять программное обеспечение. Изначально она была разработана в рамках проекта Debian для работы с .deb пакетами, но потом в нее добавили совместимость с пакетами rpm.
+
+
+-APTITUDE-
+	Aptitude - это оболочка для APT, которая добавляет пользовательский интерфейс, и много дополнительной функциональности, например поиска пакета в интерактивном режиме, а также моментальная его установка или удаление.
+В целом Aptitude менеджер пакетов более высокого уровня. Он упрощает многие детали низкого уровня и может работать в пользовательском интерфейсе или в режиме командной строки.
+
+-Разница между apt и aptitude-
+1.APT - утилита , а APTTUDE оболочка для утилиты APT.
+2.У APT нет графического интерфейса , тем временем APTITUDE его предоставляет.
+3.APT - менеджер пакетов низкого уровная , а APTITUDE - высокого.
+4.APTITUDE имеет больше функционал чем APT.
+5.APTITUDE позволяет лучше управлять пакетами чем apt-get.
+6.При удалении через apt , он удаляет только то , что было указано в команде , а APTITUDE автоматически удаляет неиспользованные пакеты и все их зависимости.
+
+
+Debian commands:
+
+-DEBIAN
+
+	grep -i "installed" /var/log/dpkg.log -			list install package
+	dpkg -l | grep ufw							check install package
+	unman -a - 								check info or OC
+	users -								check online users
+	su - -									reconnect root user
+	lsblk -								check markup disk
+	id <USER_NAME> -							get information or user
+
+
+
+-SSH
+	sudo apt install openssl-server ssh -				install package ssh
+	sudo systemctl status sshd -					check status sshd
+	sudo ufw delete allow <PORT> - 					delete port
+	sudo ufw disable - 						disable ufw
+	sudo ufw enable - 							enable ufw
+	sudo ufw status - 							status ports
+	sudo ufw allow <PORT> - 						open new port
+	sudo ufw deny <PORT> - 						disable port
+	sudo systemctl restatrt sshd - 					restart for remake ports
+	netstat -tln -							check ports
+
+	-PATH
+		vim etc/ssh/sshd_config - 				path to remake port
+	
+	
+	
+-HOSTNAME
+	hostnamectl	- 							check hostname
+	sudo hostnamectl set-hostname <HOST_NAME> - 		set new hostname
+
+	-PATH
+		vim etc/hosts - 						path to remake hostname
+
+
+
+-USER_SETTINGS
+	getent group <GROUP_NAME> -					check users <GROUP>
+	sudo -lU <USER_NAME> -						what is group
+	sudo apt-get install libpam-pwquality -			lib for politics password
+	sudo addgroup <GROUP_NAME> - 					add new group
+	sudo adduser <USER_NAME> -					add new user
+	sudo userdel -r <USER_NAME> -					delete user
+	sudo passdw <USER_NAME> -					add new or remake pass
+	sudo groupadd <GROUP_NAME> -					make new user_group
+	sudo groupdel <GROUP_NAME> -					delete group
+	sudo usermod –aG <GROUP(S)_NAME> <USER_NAME> -		give user new group(s)
+	sudo deluser <USER_NAME> <GROUP(S)_NAME> -			delete group for user
+	sudo usermod -l <NEW_USERNAME> <OLD_USERNAME> - 		rename user
+	
+	-PASS_SETTING
+		*login.defs*
+		PASS_MAX_DAYS -						max day for actuality pass
+		PASS_MIN_DAYS -						min numbers days for settings pass
+		PASS_WARN_AGE -						warn message if pass not actuality across 7 days
+		
+		*common-password*
+		minlen -							min len password
+		retry -							max numbers attemps for input pass
+		maxrepat -							max repeat symbols
+		ucredit -							min numbers upper symbols
+		dcredit -							min numbers integer
+		reject_username - 						settings to pass don't repeat username
+		difok -							checks the password against the symbol(s) with the previous password
+		enforce_for_root -						check and for root user
+		remember -							remember 1 last pass
+
+	-SUDO_SETTINGS
+		*sudoers*
+		Defaults passwd_tries -					numbers of attempts for warn input pass
+		Defaults badpass_message -				warn message for bad password
+		Defaults logfile -						log file
+		Defaults requiretty -					on TTY
+		
+	-PATH
+		vim etc/login.defs -					settings for politics pass
+		vim etc/pam.d/common-password - 			settings for politics pass
+		sudo vim etc/sudoers/ -					settings for sudo
+		sudo visudo							settings for sudo
+
+
+
+-CRON
+	crontab -e -								settings for cron
+	/etc/init.d/cron stop -						stop cron
+	/etc/init.d/cron restart -					restart cron
+	/etc/init.d/cron start -						start cron
+	
+	-CRONTAB -E
+		* * * * * — 							запускать команду каждую минуту.
+		12 * * * * — 						запускать команду 12 минут в начале каждого часа.
+		0,15,30,45 * * * * — 					запускать команду каждые 15 минут.
+		*/15 * * * * — 						запускать команду каждые 15 минут.
+		0 4 * * * — 							запускать команду каждый день в 4:00.
+		0 4 * * 2-4 — 						запускать команду каждый вторник, среду и четверг в 4:00.
+		20,40 */8 * 7-12 * — 					запускать команду в 20-ю и 40-ю минуту каждого 8-го часа каждый день последних 6 месяцев года.
+
+		1-st * -				minutes
+		2-nd * -				hour
+		3-ed * -				days
+		4-th * -				month
+		5-th * -				years
+
+
+
+-SCRIPT
+	free -m	-					check memory
+	grep <WORD/PATH_TO_FILE> <WORD>	-		search word
+	df -h -						info hdd
+	wc -l -						return numbers elements
+	who -b -						last boot
+	ip a -							network adress
+	
+
+-END-
